@@ -333,7 +333,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         //Si esta "practicamente" tocando el suelo puede hacer doble salto ya que no queda raro con el dash
 
-        Debug.Log("hola");
+        //Debug.Log("hola");
 
         if (Physics.Raycast(transform.position, -Vector3.up, out hit2, offsetDash, groundLayer)) { allowedDashDoubleJump = true; }
         else { allowedDashDoubleJump = false; }
