@@ -124,6 +124,9 @@ public class PlayerJumpState : PlayerBaseState, IRootState
 
     void HandleDoubleJump()
     {
+
+        Debug.Log("DOUBLE JUUUMP");
+
         Ctx.Animator.SetBool(Ctx.IsDoubleJumpingHash, true);
 
         //Debug.Log(Ctx.InitialJumpVelocities[Ctx.JumpCount]);

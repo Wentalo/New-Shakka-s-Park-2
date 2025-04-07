@@ -395,7 +395,7 @@ public class PlayerStateMachine : MonoBehaviour
 
         HandleDoubleJumpCheck();
 
-
+        //Aqui es donde se actualiza la camara free look si toca el limite de la camara o no
 
         if (characterController.transform.position.y > maxJumpReach) { maxJumpReach = characterController.transform.position.y; }
 

@@ -9,7 +9,7 @@ public class PlayerIdleState : PlayerBaseState
 
     IEnumerator IdleRotationRoutine()
     {
-        Debug.Log("hola Idle Roation");
+        //Debug.Log("hola Idle Roation");
 
         yield return new WaitForSeconds(Ctx.IdleTime); //El tiempo de espera es de 10 segundos, ajustar a algo
         //Ctx.Animator.SetBool(Ctx.IsChangingIdleHash, true);
@@ -37,7 +37,7 @@ public class PlayerIdleState : PlayerBaseState
 
         if (!Ctx.InsideIdleRotation)
         {
-            Ctx.IdleTime = Random.Range(10, 21); //Esperara entre 10 y 20 segundos
+            Ctx.IdleTime = Random.Range(10.0f, 21.0f); //Esperara entre 10 y 20 segundos
             Ctx.InsideIdleRotation = true;
             Ctx.CurrentIdleRotationRoutine = Ctx.StartCoroutine(IdleRotationRoutine());
         }

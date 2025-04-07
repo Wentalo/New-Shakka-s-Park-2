@@ -27,7 +27,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
     {
         Debug.Log("Ha entrado en Grounded");
 
-        Ctx.CanDoubleJump = true;
+        Ctx.CanDoubleJump = true;  //Una vez toca el suelo puede hacer salto doble
         Ctx.InsideCoyoteTime = true; //El coyote time esta disponible nada mas entrar al suelo (renta?)
         Ctx.RequireNewCoyote = false; //Solo se puede hacer un coyote time por entrada al suelo
 
