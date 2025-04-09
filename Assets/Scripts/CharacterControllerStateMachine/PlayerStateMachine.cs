@@ -304,27 +304,40 @@ public class PlayerStateMachine : MonoBehaviour
 
     void HandleRotation()
     {
+
+        //En vez del input se puede usar directamente el cameraRelativeMovement y nos ahorramos el ConverToCameraSpace
+        //Funciona exactamente igual      
+
         Vector3 positionToLookAt;
+
+        /*
         //the change in position our character should point to
         positionToLookAt.x = currentMovementInput.x;
         positionToLookAt.y = 0.0f;
         positionToLookAt.z = currentMovementInput.y;
 
         positionToLookAt = ConvertToCameraSpace(positionToLookAt);
+        */
+
+        positionToLookAt.x = cameraRelativeMovement.x;
+        positionToLookAt.y = 0.0f;
+        positionToLookAt.z = cameraRelativeMovement.z;
+
+
 
         //the current rotation for our character
         Quaternion currentRotation = transform.rotation;
 
         if (movementPressed)
         {
+            //crea una nuvea rotacion basada en donde el jugador esta pulsando (moviendose)
             Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
-
 
             //angle = Quaternion.Angle(currentRotation, targetRotation);
 
+            //rotate the character to face the position positionToLookAt
             transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationSpeedMultiplier * Time.deltaTime); //El time.deltaTime permite que no sea tan brusco
         }
-        //creates a new rotation based on where the player is currently pressing
     }
 
     //ARREGLAR RAYCASTS
@@ -347,6 +360,7 @@ public class PlayerStateMachine : MonoBehaviour
         else { allowedDJ = true; }
     }
 
+    //EN DESUSO
     void HandleBlendTreeAnimation()
     {
         Vector2 vectorController = new Vector2(characterController.transform.forward.x, characterController.transform.forward.z);
@@ -402,6 +416,7 @@ public class PlayerStateMachine : MonoBehaviour
         //angle = (Vector3.Angle(characterController.transform.forward, cameraManager.transform.forward));
     }
 
+    //Calculamos hacia donde se tiene que mover el personaje Y APUNTAR (mirar) en relacion a la camara
 
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)
     {
@@ -423,24 +438,30 @@ public class PlayerStateMachine : MonoBehaviour
         Vector3 cameraRightXProduct = vectorToRotate.x * cameraRight;
 
         Vector3 vectorRotatedToCameraSpace = cameraForwardZProduct + cameraRightXProduct;
-        vectorRotatedToCameraSpace.y = currentYValue;
+        vectorRotatedToCameraSpace.y = currentYValue;   //Aqui reintroducimos el movimiento en Y
         return vectorRotatedToCameraSpace;
     }
 
+    // (EN DESUSO POR UPGRADE) Calculamos hacia donde se tiene que mover el personaje en relacion a la camara 
     void MovePlayerRelativeToCamera()
     {
+        //Recogemos los vectores normalizados de la camara, que nos indican como ir hacia delante y como girar
+
         Vector3 forward = Camera.main.transform.forward;
         Vector3 right = Camera.main.transform.right;
+
+        //Aplicamos 0 para que no salga volando (no se vea afectado por el tilt de la camara)
+        //Normalizamos para que la velocidad del personaje no se vea afectada por la rotacion arriba y abajo de la camara
         forward.y = 0;
         right.y = 0;
-        forward = forward.normalized; //Para que el personaje no se vaya flotando (?)
+        forward = forward.normalized; 
         right = right.normalized;
 
-        //Create direction-relative-input vectors
+        //Create direction-relative-input vectors, Hacemos que los inputs se multipliquen por la camara
         Vector3 forwardRelativeVerticalInput = verticalInput * forward;
         Vector3 rightRelativeHorizontalInput = horizontalInput * right;
 
-        //Create and apply camera relative movement
+        //Create and apply camera relative movement, lo aplicamos
         Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
         Camera.main.transform.Translate(cameraRelativeMovement, Space.World);
     }
