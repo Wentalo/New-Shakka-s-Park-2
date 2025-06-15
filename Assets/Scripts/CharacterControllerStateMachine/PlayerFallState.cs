@@ -14,7 +14,7 @@ public class PlayerFallState : PlayerBaseState, IRootState
     {
         Debug.Log("Ha entrado en Fall");
 
-        Ctx.CanFallingJump = true; //??
+        Ctx.CanFallingJump = true; 
 
         InitializeSubState();
         Ctx.Animator.SetBool(Ctx.IsFallingHash, true);

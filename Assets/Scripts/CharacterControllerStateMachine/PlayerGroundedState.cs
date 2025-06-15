@@ -28,7 +28,8 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         Debug.Log("Ha entrado en Grounded");
 
         Ctx.CanDoubleJump = true;  //Una vez toca el suelo puede hacer salto doble
-        Ctx.InsideCoyoteTime = true; //El coyote time esta disponible nada mas entrar al suelo (renta?)
+
+        Ctx.InsideCoyoteTime = true; //El coyote time esta disponible nada mas entrar al suelo
         Ctx.RequireNewCoyote = false; //Solo se puede hacer un coyote time por entrada al suelo
 
         InitializeSubState();
@@ -38,7 +39,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
     public override void UpdateState()
     {
         //No debe activarse la corutina del coyote time mientras este haciendo dash
-        //debido a la mala deteccion del suelo
+        //debido a la deteccion del suelo
 
         if (!Ctx.IsDashing && !Ctx.CharacterController.isGrounded && !Ctx.RequireNewCoyote)
         {

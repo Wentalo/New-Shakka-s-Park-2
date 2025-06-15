@@ -19,6 +19,7 @@ public class PlayerStateMachine : MonoBehaviour
     int jumpCountHash;
     int isChangingIdleHash;
     int idleCountHash;
+    int isDashingHash;
     int posXHash;
 
     [Header("Camera")]
@@ -93,7 +94,7 @@ public class PlayerStateMachine : MonoBehaviour
 
 
     [Header("Dash settings")]
-    public bool canDash = true;
+    public bool canDash = false;
     public bool isDashing = false;
     public float dashingMultiplier = 5.0f;
     public float dashingTime = 0.2f;
@@ -192,7 +193,8 @@ public class PlayerStateMachine : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
-        tr.emitting = true;
+        Animator.SetTrigger(isDashingHash);
+        tr.emitting = true;       
         yield return new WaitForSeconds(dashingTime);
 
         tr.emitting = false;
@@ -205,6 +207,9 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Awake()
     {
+        //Time.timeScale = 0.5f;
+
+
         //variable de referencias
         input = new PlayerInput();
         characterController = GetComponent<CharacterController>();
@@ -225,6 +230,7 @@ public class PlayerStateMachine : MonoBehaviour
         jumpCountHash = Animator.StringToHash("jumpCount");
         isChangingIdleHash = Animator.StringToHash("isChangingIdle");
         idleCountHash = Animator.StringToHash("idleCount");
+        isDashingHash = Animator.StringToHash("isDashing");
         //posXHash = Animator.StringToHash("posX");
 
         //Seria quitar el canceled?
@@ -248,16 +254,16 @@ public class PlayerStateMachine : MonoBehaviour
         float timeToApex = maxJumpTime / 2;
 
         //Esta es la gravedad aplicada al salto, no a la caída
-        float initialGravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex, 2); //Refactorizar para ahorra consumo
+        float initialGravity = (-2 * maxJumpHeight) / (timeToApex * timeToApex); //Refactorizar para ahorra consumo
         //commonGravity = (-2 * maxJumpHeight) / (timeToApex * timeToApex); //No podemos hacer esto pq el personaje caeria muy rapido
         initialJumpVelocity = (2 * maxJumpHeight) / timeToApex;
 
         //adds 2 in Height and i 25% longer in time
-        float secondJumpGravity = (-2 * (maxJumpHeight * 1.5f)) / Mathf.Pow((timeToApex * 1.25f), 2);
+        float secondJumpGravity = (-2 * (maxJumpHeight * 1.5f)) / ((timeToApex * 1.25f) * (timeToApex * 1.25f));
         float secondJumpInitialVelocity = (2 * (maxJumpHeight * 1.5f)) / (timeToApex * 1.25f);
 
         //adds 4 in Height and i 50% longer in time
-        float thirdJumpGravity = (-2 * (maxJumpHeight * 2.0f)) / Mathf.Pow((timeToApex * 1.5f), 2);
+        float thirdJumpGravity = (-2 * (maxJumpHeight * 2.0f)) / ((timeToApex * 1.5f) * (timeToApex * 1.5f));
         float thirdJumpInitialVelocity = (2 * (maxJumpHeight * 2.0f)) / (timeToApex * 1.5f);
 
         initialJumpVelocities.Add(1, initialJumpVelocity);
