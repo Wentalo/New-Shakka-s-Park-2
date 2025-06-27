@@ -26,7 +26,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
 
     public override void EnterState()
     {
-        Debug.Log("Ha entrado en Jump");
+        //Debug.Log("Ha entrado en Jump");
 
         //Para no activar el buffer nada mas entrar
         Ctx.RequireNewBuffer = true;
@@ -125,7 +125,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
     void HandleDoubleJump()
     {
 
-        Debug.Log("DOUBLE JUUUMP");
+        //Debug.Log("DOUBLE JUUUMP");
 
         Ctx.Animator.SetBool(Ctx.IsDoubleJumpingHash, true);
 

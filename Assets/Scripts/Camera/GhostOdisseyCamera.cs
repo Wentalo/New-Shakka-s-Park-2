@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GhostOdisseyCamera : MonoBehaviour
 {
-
-
     float SmoothTimeGrounded = 0.3f;
     public float SmoothTimeAir = 0.2f; //Anitguo 0.6
 

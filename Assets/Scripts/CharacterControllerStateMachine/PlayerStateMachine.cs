@@ -407,6 +407,10 @@ public class PlayerStateMachine : MonoBehaviour
             cameraRelativeMovement.y = 0;
 
             characterController.Move(cameraRelativeMovement * Time.deltaTime);
+
+            
+
+            
         }
 
         //Solo habia que poner cual era la capa a usar
@@ -418,6 +422,14 @@ public class PlayerStateMachine : MonoBehaviour
         //Aqui es donde se actualiza la camara free look si toca el limite de la camara o no
 
         if (characterController.transform.position.y > maxJumpReach) { maxJumpReach = characterController.transform.position.y; }
+
+
+        //En caso de caer al vacio
+
+        if (this.transform.position.y < -20)
+        {
+            this.transform.position = new Vector3(0.0f, 0.15f, 0.0f);
+        }
 
         //angle = (Vector3.Angle(characterController.transform.forward, cameraManager.transform.forward));
     }

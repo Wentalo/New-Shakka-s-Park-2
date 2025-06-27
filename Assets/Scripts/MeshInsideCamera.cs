@@ -25,12 +25,16 @@ public class MeshInsideCamera : MonoBehaviour
         cameraFrustrum = GeometryUtility.CalculateFrustumPlanes(activeCamera);
         if (GeometryUtility.TestPlanesAABB(cameraFrustrum, bounds))
         {
-            originalRenderer.sharedMaterial.color = Color.green;
+            Debug.Log("Dentro de camara");
+            //originalRenderer.sharedMaterial.color = Color.green;
         }
         else
         {
-            originalRenderer.sharedMaterial.color = Color.red;
+            Debug.Log("Fuera de camara");
+            //originalRenderer.sharedMaterial.color = Color.red;
         }
+
+        Debug.Log(bounds);
 
     }
 }

@@ -46,7 +46,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void ExitState() 
     {
-        Debug.Log("He salido de Idle State");
+        //Debug.Log("He salido de Idle State");
         Ctx.StopCoroutine(Ctx.CurrentIdleRotationRoutine); //nos aseguramos de que el trigger no vaya a saltar
         //Ctx.Animator.SetBool(Ctx.IsChangingIdleHash, false);
         Ctx.Animator.ResetTrigger(Ctx.IsChangingIdleHash); 

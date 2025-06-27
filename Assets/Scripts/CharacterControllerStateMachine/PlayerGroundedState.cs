@@ -25,7 +25,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
     public override void EnterState()
     {
-        Debug.Log("Ha entrado en Grounded");
+        //Debug.Log("Ha entrado en Grounded");
 
         Ctx.CanDoubleJump = true;  //Una vez toca el suelo puede hacer salto doble
 
